@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from '../../config';
 import HeroImage from '../elements/HeroImage/HeroImage';
 import SearchBar from '../elements/SearchBar/SearchBar';
 import FourColGrid from '../elements/FourColGrid/FourColGrid';
@@ -9,8 +10,15 @@ import './Home.css';
 
 class Home extends Component {
     state = {
-
+        movies: [],
+        heroImage: null,
+        loading: false,
+        currentPage: 0,
+        totalPages: 0,
+        searchTerm: ''
     }
+
+    
 
     render () {
         return (
