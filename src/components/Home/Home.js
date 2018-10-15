@@ -28,6 +28,7 @@ class Home extends Component {
                 <FourColGrid />
                 <Spinner />
                 <LoadMoreBtn />
+                <MovieThumb />
             </div>
         )
     }
