@@ -25,9 +25,20 @@ class Home extends Component {
     }
 
     searchItems = (searchTerm) => {
-        
+        console.log(searchTerm);
+        let endpoint = '';
+        this.setState ({
+            movies: [],
+            loading: true,
+            searchTerm
+        })
 
-
+        if (searchTerm === '') {
+            endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        } else {
+            endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}`;
+        }
+        this.fetchItems(endpoint);
     }
 
     loadMoreItems = () => {
@@ -67,9 +78,24 @@ class Home extends Component {
                 title={this.state.heroImage.original_title}
                 text={this.state.heroImage.overview}
                 />
-                <SearchBar />
+                <SearchBar callback={this.searchItems}/>
             </div> : null}
-                <FourColGrid />
+                <div className="rmdb-home-grid">
+                    <FourColGrid
+                    header={this.state.searchTerm ? 'Search Result' : 'Popular Movies'}
+                    loading = {this.state.loading}
+                    >
+                    {this.state.movies.map ( (element, i) =>  {
+                        return <MovieThumb
+                                 key={i}
+                                 clickable={true}
+                                 image={element.poster_path ? `{IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : '../../../public/images/no_image.jpg'}
+                                 movieId={element.id}
+                                 movieName={element.original_title}
+                                 />
+                    })}
+                    </FourColGrid>
+                </div>
                 <Spinner />
                 <LoadMoreBtn />
             </div>
