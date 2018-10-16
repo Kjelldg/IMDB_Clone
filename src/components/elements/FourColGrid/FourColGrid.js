@@ -20,7 +20,7 @@ const FourColGrid = (props) => {
 
         <div className="rmdb-grid">
             {props.header && !props.loading ? <h1>{props.header}</h1> : null}
-            <div className="rmdb-div-content">
+            <div className="rmdb-grid-content">
             {renderElements()}
             </div>
         </div>
